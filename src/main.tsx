@@ -5,8 +5,9 @@ import store from './redux/store';
 import './index.css'
 
 
-import { Header } from './components/header.components'
-import { SignUp } from './components/signUp.component'
+import { Header } from './components/header.components';
+import { SignUp } from './components/signUp.component';
+import { SignIn } from "./components/signIn.component";
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 
@@ -14,11 +15,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   //   <Header />
   //   <SignUp />
   // </React.StrictMode>,
-  
+
   <Provider store={store}>
     <React.StrictMode>
       <Header />
       <SignUp />
+      <SignIn />
     </React.StrictMode>,
   </Provider>
 )

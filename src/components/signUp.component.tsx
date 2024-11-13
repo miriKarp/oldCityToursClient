@@ -8,10 +8,12 @@ import { TextField } from '@mui/material';
 
 export const SignUp = () => {
     return <>
-        <TextField fullWidth label="name" id="name" />
-        <TextField fullWidth label="email" id="email" />
-        <TextField fullWidth label="phone" id="phone" />
-
+        <h3>להרשמה</h3>
+        <TextField fullWidth label="שם" id="name" />
+        <TextField fullWidth label="סיסמה" id="password" />
+        <TextField fullWidth label="אימייל" id="email" />
+        <TextField fullWidth label="פלאפון" id="phone" />
+<button type='button'> מחוברים? לחצו כאן לכניסה</button>
         {/* <FormControl defaultValue="" required>
             <Label>Name</Label>
             <StyledInput placeholder="Write your name here" />
