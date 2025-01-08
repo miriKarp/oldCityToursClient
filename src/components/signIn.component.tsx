@@ -9,7 +9,7 @@ import { TextField } from '@mui/material';
 export const SignIn = () => {
     return <>
         <h3>לכניסה</h3>
-        <TextField fullWidth label="email" id="email" />
+        <TextField fullWidth label="אימייל" id="email" />
         <TextField fullWidth label="סיסמה" id="password" />
         <button type='button'>עוד לא מחוברים? להרשמה לחצו כאן</button>
         {/* <FormControl defaultValue="" required>
