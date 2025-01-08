@@ -3,7 +3,7 @@
 // import { Label } from '@mui/icons-material';
 // import { StyledInput } from '@mui/material/';
 // import { HelperText } from '@mui/base/';
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 
 
 export const SignUp = () => {
@@ -13,7 +13,13 @@ export const SignUp = () => {
         <TextField fullWidth label="סיסמה" id="password" />
         <TextField fullWidth label="אימייל" id="email" />
         <TextField fullWidth label="פלאפון" id="phone" />
-<button type='button'> מחוברים? לחצו כאן לכניסה</button>
+        <Button variant="outlined" href="#outlined-buttons">
+            הרשמה
+        </Button>
+        <Button variant="outlined" href="#outlined-buttons">
+            מחוברים? לחצו כאן לכניסה
+        </Button>
+        {/* <button type='button'> מחוברים? לחצו כאן לכניסה</button> */}
         {/* <FormControl defaultValue="" required>
             <Label>Name</Label>
             <StyledInput placeholder="Write your name here" />

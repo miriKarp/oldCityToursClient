@@ -21,6 +21,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <Header />
       <SignUp />
       <SignIn />
-    </React.StrictMode>,
+    </React.StrictMode>
   </Provider>
 )
