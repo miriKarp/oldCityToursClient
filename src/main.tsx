@@ -4,23 +4,16 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import './index.css'
 
-
-import { Header } from './components/header.components';
-import { SignUp } from './components/signUp.component';
-import { SignIn } from "./components/signIn.component";
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 
-  // <React.StrictMode>
-  //   <Header />
-  //   <SignUp />
-  // </React.StrictMode>,
-
   <Provider store={store}>
     <React.StrictMode>
-      <Header />
-      <SignUp />
-      <SignIn />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </React.StrictMode>
   </Provider>
 )
