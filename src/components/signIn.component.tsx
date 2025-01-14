@@ -3,7 +3,7 @@ import { Button, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/actions/userAction';
 import { AppDispatch, RootState } from '../redux/store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const SignIn = () => {
 
@@ -12,10 +12,17 @@ export const SignIn = () => {
     const [password, setPassword] = useState('');
 
     const loading = useSelector((state: RootState) => state.user.loading);
-    const error = useSelector((state: RootState) => state.user.error);
+    const navigate = useNavigate();
 
-    const handleLogin = () => {
-        dispatch(loginUser(email, password));
+    const handleLogin = async () => {
+        try {
+            const response = await dispatch(loginUser(email, password));
+            if (response) {
+                navigate('/Home');
+            }
+        } catch (err) {
+            console.error('Registration failed', err);
+        }
     };
 
     return <>
@@ -25,7 +32,6 @@ export const SignIn = () => {
         <Button variant="outlined" href="#outlined-buttons" onClick={handleLogin} disabled={loading}>
             {loading ? 'טוען...' : 'כניסה'}
         </Button>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
         <Link to="/signup">
             <Button variant="outlined">
                 עוד לא מחוברים? להרשמה לחצו כאן
