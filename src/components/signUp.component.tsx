@@ -12,8 +12,8 @@ export const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
-
-    const loading = useSelector((state: RootState) => state.user.loading);
+    const signUpLoading = useSelector((state: RootState) => state.user.loading);
+    const signUpError = useSelector((state: RootState) => state.user.signUpError);
     const navigate = useNavigate();
 
     const handleRegister = async () => {
@@ -34,9 +34,10 @@ export const SignUp = () => {
             <TextField fullWidth label="סיסמה" id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <TextField fullWidth label="פלאפון" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            <Button variant="outlined" onClick={handleRegister} disabled={loading}>
-                {loading ? 'טוען...' : 'הרשמה'}
+            <Button variant="outlined" onClick={handleRegister} disabled={signUpLoading}>
+                {signUpLoading ? 'טוען...' : 'הרשמה'}
             </Button>
+            {signUpError && <p style={{ color: 'red' }}>{signUpError}</p>}
             <Button variant="outlined" href="#outlined-buttons" component={Link} to="/signin">
                 מחוברים? לחצו כאן לכניסה
             </Button>

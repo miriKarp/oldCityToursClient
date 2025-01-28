@@ -10,8 +10,8 @@ export const SignIn = () => {
     const dispatch: AppDispatch = useDispatch();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const loading = useSelector((state: RootState) => state.user.loading);
+    const signInLoading = useSelector((state: RootState) => state.user.loading);
+    const signInError = useSelector((state: RootState) => state.user.signInError);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
@@ -29,9 +29,10 @@ export const SignIn = () => {
         <h3>לכניסה</h3>
         <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <TextField fullWidth label="סיסמה" id="password" type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Button variant="outlined" href="#outlined-buttons" onClick={handleLogin} disabled={loading}>
-            {loading ? 'טוען...' : 'כניסה'}
+        <Button variant="outlined" href="#outlined-buttons" onClick={handleLogin} disabled={signInLoading}>
+            {signInLoading ? 'טוען...' : 'כניסה'}
         </Button>
+        {signInError && <p style={{ color: 'red' }}>{signInError}</p>}
         <Link to="/signup">
             <Button variant="outlined">
                 עוד לא מחוברים? להרשמה לחצו כאן

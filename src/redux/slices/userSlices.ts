@@ -3,13 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface UserState {
   user: { email: string; token: string } | null;
   loading: boolean;
-  error: string | null;
+  signUpError: string | null;
+  signInError: string | null;
 }
 
 const initialState: UserState = {
-  user: null,
   loading: false,
-  error: null,
+  user: null,
+  signUpError: null,
+  signInError: null,
 };
 
 const userSlice = createSlice({
@@ -18,18 +20,36 @@ const userSlice = createSlice({
   reducers: {
     authStart(state) {
       state.loading = true;
-      state.error = null;
+      state.signUpError = null;
+      state.signInError = null;
     },
-    authSuccess(state, action: PayloadAction<{ email: string; token: string }>) {
+    signInSuccess(state, action: PayloadAction<{ email: string; token: string }>) {
       state.loading = false;
       state.user = action.payload;
+      state.signInError = null;
     },
-    authFailure(state, action: PayloadAction<string>) {
+    signInFailure(state, action: PayloadAction<string>) {
       state.loading = false;
-      state.error = action.payload;
+      state.signInError = action.payload;
+    },
+    signUpSuccess(state, action: PayloadAction<{ email: string; token: string }>) {
+      state.loading = false;
+      state.user = action.payload;
+      state.signUpError = null;
+    },
+    signUpFailure(state, action: PayloadAction<string>) {
+      state.loading = false;
+      state.signUpError = action.payload;
     },
   },
 });
 
-export const { authStart, authSuccess, authFailure } = userSlice.actions;
+export const {
+  authStart,
+  signInSuccess,
+  signInFailure,
+  signUpSuccess,
+  signUpFailure,
+} = userSlice.actions;
+
 export default userSlice.reducer;
