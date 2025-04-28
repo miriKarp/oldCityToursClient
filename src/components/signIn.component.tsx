@@ -18,6 +18,7 @@ export const SignIn = () => {
         try {
             const response = await dispatch(loginUser(email, password));
             if (response) {
+                localStorage.setItem("Name", JSON.stringify(response.user.name));
                 navigate('/Home');
             }
         } catch (err) {
