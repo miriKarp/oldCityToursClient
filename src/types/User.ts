@@ -5,5 +5,6 @@ export type User = {
     password: string,
     email: string,
     phone: string,
+    isMAnager: boolean,
     toursList: Tour[],
 }

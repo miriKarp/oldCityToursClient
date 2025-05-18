@@ -60,14 +60,18 @@ button:focus-visible {
     color: #213547;
     background-color: #ffffff;
   }
+}
 
-  button {
-    /* background-color: #f9f9f9; */
-  }
+#returnSignin {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-around; */
+  flex-direction: column;
+  /* margin-right: 50%; */
 }
 
 #home {
-  background-image: url("../../public/images/night-view-old-narrow-street.jpg");
+  background-image: url("./images/night-view-old-narrow-street.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -75,13 +79,14 @@ button:focus-visible {
   width: 100vw;
 }
 
-.homeIcon{
+.homeIcon {
   position: sticky;
   top: 5%;
   right: 85%;
 }
 
-#text{
+#text {
   color: white;
   text-align: center;
+  font-size: xx-large;
 }

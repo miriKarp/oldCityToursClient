@@ -1,18 +1,27 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+
 interface UserState {
-  user: { email: string; token: string } | null;
+  user: {
+    name: string;
+    email: string;
+    isManager: boolean;
+  } | null;
+  token: string | null;
   loading: boolean;
   signUpError: string | null;
   signInError: string | null;
 }
 
+
 const initialState: UserState = {
   loading: false,
   user: null,
+  token: null,
   signUpError: null,
   signInError: null,
 };
+
 
 const userSlice = createSlice({
   name: 'user',
@@ -23,18 +32,20 @@ const userSlice = createSlice({
       state.signUpError = null;
       state.signInError = null;
     },
-    signInSuccess(state, action: PayloadAction<{ email: string; token: string }>) {
+    signInSuccess(state, action: PayloadAction<{ token: string; user: { name: string; email: string; isManager: boolean } }>) {
       state.loading = false;
-      state.user = action.payload;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
       state.signInError = null;
     },
     signInFailure(state, action: PayloadAction<string>) {
       state.loading = false;
       state.signInError = action.payload;
     },
-    signUpSuccess(state, action: PayloadAction<{ email: string; token: string }>) {
+    signUpSuccess(state, action: PayloadAction<{ token: string; user: { name: string; email: string; isManager: boolean } }>) {
       state.loading = false;
-      state.user = action.payload;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
       state.signUpError = null;
     },
     signUpFailure(state, action: PayloadAction<string>) {

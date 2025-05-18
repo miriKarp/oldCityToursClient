@@ -20,7 +20,7 @@ export const SignUp = () => {
         try {
             const response = await dispatch(registerUser(name, email, password, phone));
             if (response) {
-                localStorage.setItem("Name", name);
+                localStorage.setItem("Name", JSON.stringify(name));
                 navigate('/Home');
             }
         } catch (err) {
@@ -30,18 +30,20 @@ export const SignUp = () => {
 
     return (
         <>
-            <h3>להרשמה</h3>
-            <TextField fullWidth label="שם" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-            <TextField fullWidth label="סיסמה" id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-            <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <TextField fullWidth label="פלאפון" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-            <Button variant="outlined" onClick={handleRegister} disabled={signUpLoading}>
-                {signUpLoading ? 'טוען...' : 'הרשמה'}
-            </Button>
-            {signUpError && <p style={{ color: 'red' }}>{signUpError}</p>}
-            <Button variant="outlined" href="#outlined-buttons" component={Link} to="/signin">
-                מחוברים? לחצו כאן לכניסה
-            </Button>
+            <div id='returnSignin'>
+                <h3>להרשמה</h3>
+                <TextField fullWidth label="שם" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+                <TextField fullWidth label="סיסמה" id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <TextField fullWidth label="פלאפון" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <Button variant="outlined" onClick={handleRegister} disabled={signUpLoading}>
+                    {signUpLoading ? 'טוען...' : 'הרשמה'}
+                </Button>
+                {signUpError && <p style={{ color: 'red' }}>{signUpError}</p>}
+                <Button variant="outlined" href="#outlined-buttons" component={Link} to="/signin">
+                    מחוברים? לחצו כאן לכניסה
+                </Button>
+            </div>
         </>
     );
 };

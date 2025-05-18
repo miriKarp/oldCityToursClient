@@ -11,13 +11,16 @@ export const register = async (name: string, email: string, password: string, ph
       password,
       phone
     });
-    console.log(response.data);
-    return response.data;
+
+    const { token, user } = response.data;
+    return { token, user };
+
   } catch (error: any) {
     console.error('Error during registration:', error);
     if (error.response.status === 400) {
       throw new Error("משתמש זה כבר קיים במערכת");
     }
+    throw new Error("שגיאת שרת במהלך הרשמה");
   }
 };
 
@@ -30,8 +33,8 @@ export const login = async (email: string, password: string) => {
       email,
       password
     });
-    console.log(response.data);
-    return response.data;
+    const { token, user } = response.data;
+    return { token, user };
   } catch (error: any) {
     console.error('Error during login:', error);
     if (error.response.status === 404) {
@@ -40,5 +43,6 @@ export const login = async (email: string, password: string) => {
     if (error.response.status === 401) {
       throw new Error("סיסמה לא נכונה");
     }
+    throw new Error("שגיאת שרת במהלך התחברות");
   }
 };

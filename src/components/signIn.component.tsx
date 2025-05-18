@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/actions/userAction';
 import { AppDispatch, RootState } from '../redux/store';
 import { Link, useNavigate } from 'react-router-dom';
+import { flexbox } from '@mui/system';
+
 
 export const SignIn = () => {
 
@@ -14,30 +16,51 @@ export const SignIn = () => {
     const signInError = useSelector((state: RootState) => state.user.signInError);
     const navigate = useNavigate();
 
+    // const handleLogin = async () => {
+    //     try {
+    //         const response = await dispatch(loginUser(email, password));
+    //         if (response) {
+    //             localStorage.setItem("Name", JSON.stringify(response.user.name));
+    //             navigate('/Home');
+    //         }
+    //     } catch (err) {
+    //         console.error('Registration failed', err);
+    //     }
+    // };
+
     const handleLogin = async () => {
         try {
             const response = await dispatch(loginUser(email, password));
-            if (response) {
+            if (response && response.user) {
                 localStorage.setItem("Name", JSON.stringify(response.user.name));
-                navigate('/Home');
+
+                if (response.user.isManager) {
+                    navigate('/Admin'); // ניתוב למנהל
+                } else {
+                    navigate('/Home'); // ניתוב רגיל
+                }
             }
         } catch (err) {
-            console.error('Registration failed', err);
+            console.error('Login failed', err);
         }
     };
 
+
     return <>
-        <h3>לכניסה</h3>
-        <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <TextField fullWidth label="סיסמה" id="password" type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-        <Button variant="outlined" href="#outlined-buttons" onClick={handleLogin} disabled={signInLoading}>
-            {signInLoading ? 'טוען...' : 'כניסה'}
-        </Button>
-        {signInError && <p style={{ color: 'red' }}>{signInError}</p>}
-        <Link to="/signup">
-            <Button variant="outlined">
-                עוד לא מחוברים? להרשמה לחצו כאן
+        <div id='returnSignin'>
+            <h3>לכניסה</h3>
+            <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <TextField fullWidth label="סיסמה" id="password" type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <Button variant="outlined" href="#outlined-buttons" onClick={handleLogin} disabled={signInLoading}>
+                {signInLoading ? 'טוען...' : 'כניסה'}
             </Button>
-        </Link>
+            {signInError && <p style={{ color: 'red' }}>{signInError}</p>}
+            <Link to="/signup">
+                <Button variant="outlined">
+                    עוד לא מחוברים? להרשמה לחצו כאן
+                </Button>
+            </Link>
+        </div>
     </>
 }
+
