@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { Box, Button, TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../redux/actions/userAction';
-import { AppDispatch, RootState } from '../redux/store';
+import { loginUser } from '../../redux/actions/userAction';
+import { AppDispatch, RootState } from '../../redux/store';
 import { Link, useNavigate } from 'react-router-dom';
-import { flexbox } from '@mui/system';
-
 
 export const SignIn = () => {
 
@@ -16,28 +14,18 @@ export const SignIn = () => {
     const signInError = useSelector((state: RootState) => state.user.signInError);
     const navigate = useNavigate();
 
-    // const handleLogin = async () => {
-    //     try {
-    //         const response = await dispatch(loginUser(email, password));
-    //         if (response) {
-    //             localStorage.setItem("Name", JSON.stringify(response.user.name));
-    //             navigate('/Home');
-    //         }
-    //     } catch (err) {
-    //         console.error('Registration failed', err);
-    //     }
-    // };
-
     const handleLogin = async () => {
         try {
             const response = await dispatch(loginUser(email, password));
             if (response && response.user) {
-                localStorage.setItem("Name", JSON.stringify(response.user.name));
+                localStorage.setItem("name", JSON.stringify(response.user.name));
+                localStorage.setItem("user", JSON.stringify(response.user));
+                localStorage.setItem("token", response.token);
 
                 if (response.user.isManager) {
-                    navigate('/Admin'); // ניתוב למנהל
+                    navigate('/Admin');
                 } else {
-                    navigate('/Home'); // ניתוב רגיל
+                    navigate('/Home');
                 }
             }
         } catch (err) {
@@ -63,4 +51,3 @@ export const SignIn = () => {
         </div>
     </>
 }
-

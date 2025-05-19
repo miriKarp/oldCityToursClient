@@ -32,7 +32,6 @@ export const BookATour = () => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    // value={age}
                     label="סוג השרות"
                 >
                     <MenuItem value={1}>עם מדריך</MenuItem>
@@ -44,7 +43,6 @@ export const BookATour = () => {
                         <LocalizationProvider dateAdapter={AdapterDayjs} >
                             <DateTimePicker sx={{ marginTop: 2, marginBottom: 1 }}
                                 label="תאריך וזמן לסיור"
-                                // defaultValue={dayjs('2022-04-17')}
                                 slotProps={{
                                     desktopPaper: {
                                         dir: 'rtl',

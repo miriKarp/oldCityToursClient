@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Button, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../redux/actions/userAction';
-import { AppDispatch, RootState } from '../redux/store';
+import { registerUser } from '../../redux/actions/userAction';
+import { AppDispatch, RootState } from '../../redux/store';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ export const SignUp = () => {
         try {
             const response = await dispatch(registerUser(name, email, password, phone));
             if (response) {
-                localStorage.setItem("Name", JSON.stringify(name));
+                localStorage.setItem("name", JSON.stringify(name));
                 navigate('/Home');
             }
         } catch (err) {

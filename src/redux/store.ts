@@ -1,9 +1,25 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlices';
+import customersReducer from './slices/customersSlices';
+import toursReducer from "./slices/toursSlices";
+
+const userFromStorage = localStorage.getItem("user");
+const tokenFromStorage = localStorage.getItem("token");
 
 const store = configureStore({
   reducer: {
     user: userReducer,
+    customers: customersReducer,
+    tours: toursReducer,
+  },
+  preloadedState: {
+    user: {
+      user: userFromStorage ? JSON.parse(userFromStorage) : null,
+      token: tokenFromStorage || null,
+      loading: false,
+      signUpError: null,
+      signInError: null,
+    }
   },
 });
 

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-
 interface UserState {
   user: {
     name: string;
@@ -13,7 +12,6 @@ interface UserState {
   signInError: string | null;
 }
 
-
 const initialState: UserState = {
   loading: false,
   user: null,
@@ -21,7 +19,6 @@ const initialState: UserState = {
   signUpError: null,
   signInError: null,
 };
-
 
 const userSlice = createSlice({
   name: 'user',
@@ -52,6 +49,13 @@ const userSlice = createSlice({
       state.loading = false;
       state.signUpError = action.payload;
     },
+    logout(state) {
+      state.user = null;
+      state.token = null;
+      state.loading = false;
+      state.signInError = null;
+      state.signUpError = null;
+    },
   },
 });
 
@@ -61,6 +65,7 @@ export const {
   signInFailure,
   signUpSuccess,
   signUpFailure,
+  logout,
 } = userSlice.actions;
 
 export default userSlice.reducer;
