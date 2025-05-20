@@ -19,3 +19,13 @@ export const getTours = async () => {
     throw error;
   }
 };
+
+export const postTour = async (tourData: any) => {
+  try {
+    const response = await axiosData.post('/tours/addTour', tourData);
+    return response.data;
+  } catch (error: any) {
+    console.error("Error posting tour:", error.message || error);
+    throw error;
+  }
+};

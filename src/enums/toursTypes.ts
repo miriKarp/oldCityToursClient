@@ -1,6 +1,6 @@
 export enum ToursTypes {
-    WesternWallTunnels,
-    tourBetweenWalls,
-    DavidCityTour,
-    jewishQuarterTour,
+  WesternWallTunnels = 0,
+  tourBetweenWalls = 1,
+  DavidCityTour = 2,
+  jewishQuarterTour = 3,
 }

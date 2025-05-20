@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getTours } from '../../api/data.api';
+import { getTours, postTour } from '../../api/data.api';
 import { ToursTypes } from '../../enums/toursTypes';
 
 interface Tour {
@@ -36,6 +36,19 @@ export const fetchTours = createAsyncThunk(
     }
 );
 
+export const addTour = createAsyncThunk(
+  'tours/addTour',
+  async (tourData: Omit<Tour, 'id'>, thunkAPI) => {
+    try {
+      const response = await postTour(tourData);
+      return response as Tour;
+    } catch (error: any) {
+      return thunkAPI.rejectWithValue("שגיאה בהוספת הסיור");
+    }
+  }
+);
+
+
 const toursSlice = createSlice({
     name: 'tours',
     initialState,
@@ -56,5 +69,6 @@ const toursSlice = createSlice({
             });
     },
 });
+
 
 export default toursSlice.reducer;
