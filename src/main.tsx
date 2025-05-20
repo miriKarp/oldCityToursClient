@@ -12,12 +12,14 @@ import { Admin } from './components/admin/admin.component';
 import { OrderTour } from "./components/orderTour.component";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { AppInitializer } from './components/auth/appInitializer';
+import { BusinessDetails } from "./components/admin/businessDetails.component";
 
 const router = createBrowserRouter([
   { path: "/", Component: Home },
   { path: "/SignIn", Component: SignIn },
   { path: "/SignUp", Component: SignUp },
   { path: "/Home", Component: Home },
+  { path: "/BusinessDetails", Component: BusinessDetails },
   {
     path: "/BookATour",
     element: (
