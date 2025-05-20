@@ -29,7 +29,18 @@ export const fetchTours = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const data = await getTours();
-            return data as Tour[];
+
+            const adaptedData = data.map((tour: any) => ({
+                id: tour._id,
+                time: tour.time,
+                invitingName: tour.invitingName,
+                phone: tour.phone,
+                note: tour.note,
+                group: tour.group,
+                tourType: tour.tourType,
+            }));
+
+            return adaptedData as Tour[];
         } catch (error: any) {
             return thunkAPI.rejectWithValue("שגיאה בטעינת הסיורים");
         }
@@ -37,15 +48,15 @@ export const fetchTours = createAsyncThunk(
 );
 
 export const addTour = createAsyncThunk(
-  'tours/addTour',
-  async (tourData: Omit<Tour, 'id'>, thunkAPI) => {
-    try {
-      const response = await postTour(tourData);
-      return response as Tour;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue("שגיאה בהוספת הסיור");
+    'tours/addTour',
+    async (tourData: Omit<Tour, 'id'>, thunkAPI) => {
+        try {
+            const response = await postTour(tourData);
+            return response as Tour;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue("שגיאה בהוספת הסיור");
+        }
     }
-  }
 );
 
 
@@ -69,6 +80,5 @@ const toursSlice = createSlice({
             });
     },
 });
-
 
 export default toursSlice.reducer;

@@ -25,7 +25,13 @@ export const fetchCustomers = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const usersData = await getUsers();
-            return usersData as Customer[];
+            const adaptedData = usersData.map((user: any) => ({
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+            }));
+            return adaptedData as Customer[];
         } catch (error: any) {
             const message = error.response?.data?.message || error.message || "שגיאה בטעינת הלקוחות";
             return thunkAPI.rejectWithValue(message);
