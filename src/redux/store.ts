@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/userSlices';
 import customersReducer from './slices/customersSlices';
 import toursReducer from "./slices/toursSlices";
+import servicesReducer from './slices/servicesSlices';
 
 const userFromStorage = localStorage.getItem("user");
 const tokenFromStorage = localStorage.getItem("token");
@@ -11,6 +12,7 @@ const store = configureStore({
     user: userReducer,
     customers: customersReducer,
     tours: toursReducer,
+    services: servicesReducer,
   },
   preloadedState: {
     user: {

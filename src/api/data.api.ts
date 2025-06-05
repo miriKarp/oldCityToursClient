@@ -29,3 +29,24 @@ export const postTour = async (tourData: any) => {
     throw error;
   }
 };
+
+export const getServices = async () => {
+  const response = await axiosData.get('/services/services');
+  console.log("Fetched services:", response.data);
+  return response.data;
+};
+
+export const postService = async (service: any) => {
+  const response = await axiosData.post('/services/addService', service);
+  return response.data;
+};
+export const putService = async (service: any) => {
+  console.log("Updating service:", service);
+  const response = await axiosData.put('/services/updateService', service);
+  return response.data;
+};
+
+export const deleteService = async (id: string) => {
+  const response = await axiosData.delete(`/services/deleteService/${id}`);
+  return response.data;
+};

@@ -13,6 +13,7 @@ import { OrderTour } from "./components/orderTour.component";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { AppInitializer } from './components/auth/appInitializer';
 import { BusinessDetails } from "./components/admin/businessDetails.component";
+import { ServicesList } from "./components/admin/servicesList.component";
 
 const router = createBrowserRouter([
   { path: "/", Component: Home },
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
   { path: "/SignUp", Component: SignUp },
   { path: "/Home", Component: Home },
   { path: "/BusinessDetails", Component: BusinessDetails },
+  { path: "/ServicesList", Component: ServicesList },
   {
     path: "/BookATour",
     element: (
