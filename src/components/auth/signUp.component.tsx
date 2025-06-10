@@ -30,7 +30,7 @@ export const SignUp = () => {
 
     return (
         <>
-            <div id='returnSignin'>
+            <div>
                 <h3>להרשמה</h3>
                 <TextField fullWidth label="שם" id="name" value={name} onChange={(e) => setName(e.target.value)} />
                 <TextField fullWidth label="סיסמה" id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />

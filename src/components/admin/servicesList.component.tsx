@@ -7,6 +7,10 @@ import {
   updateService,
 } from '../../redux/slices/servicesSlices';
 import { Service } from '../../types/Service';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
 export const ServicesList = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +18,7 @@ export const ServicesList = () => {
 
   const [newService, setNewService] = useState<Service>({
     _id: '',
-    description: '',
+    description: ' ',
     price: 0,
     durationTime: 0,
     business: '',
@@ -50,40 +54,72 @@ export const ServicesList = () => {
   if (error) return <p>שגיאה: {error}</p>;
 
   return (
-    <div>
-      <h2>רשימת שירותים</h2>
-      <ul>
+    <Box sx={{ maxWidth: 600, margin: '0 auto', padding: 2 }}>
+      <Typography variant="h5" gutterBottom>רשימת שירותים</Typography>
+
+      <ul style={{ padding: 0 }}>
         {services.map((service) => (
-          <li key={service._id}>
+          <li key={service._id} style={{ marginBottom: '0.5rem', listStyle: 'none' }}>
             {service.description} - ₪{service.price} - {service.durationTime} דקות
-            <button onClick={() => handleEdit(service)}>✏️ ערוך</button>
-            <button onClick={() => handleDelete(service._id)}>🗑️ מחק</button>
+            <Box component="span" sx={{ ml: 1 }}>
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={() => handleEdit(service)}
+                startIcon={<EditIcon />}
+                sx={{ mr: 1 }}
+              >
+                ערוך
+              </Button>
+              <Button
+                size="small"
+                variant="outlined"
+                color="error"
+                onClick={() => handleDelete(service._id)}
+                startIcon={<DeleteIcon />}
+              >
+                מחק
+              </Button>
+            </Box>
           </li>
         ))}
       </ul>
 
-      <h3>{isEditMode ? 'עריכת שירות קיים:' : 'הוספת שירות חדש:'}</h3>
-      <input
-        type="text"
-        placeholder="תיאור"
-        value={newService.description}
-        onChange={(e) => setNewService({ ...newService, description: e.target.value })}
-      />
-      <input
-        type="number"
-        placeholder="מחיר"
-        value={newService.price}
-        onChange={(e) => setNewService({ ...newService, price: Number(e.target.value) })}
-      />
-      <input
-        type="number"
-        placeholder="משך (בדקות)"
-        value={newService.durationTime}
-        onChange={(e) => setNewService({ ...newService, durationTime: Number(e.target.value) })}
-      />
-      <button onClick={handleAddOrUpdate}>
-        {isEditMode ? 'עדכן שירות' : 'הוסף שירות'}
-      </button>
-    </div>
+      <Typography variant="h6" sx={{ mt: 3 }}>
+        {isEditMode ? 'עריכת שירות קיים:' : 'הוספת שירות חדש:'}
+      </Typography>
+
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 1 }}>
+        <TextField
+          label="תיאור"
+          value={newService.description}
+          onChange={(e) => setNewService({ ...newService, description: e.target.value })}
+        />
+        <TextField
+          type="number"
+          label="מחיר"
+          value={newService.price}
+          onChange={(e) => setNewService({ ...newService, price: Number(e.target.value) })}
+        />
+        <TextField
+          type="number"
+          label="משך זמן"
+          value={newService.durationTime}
+          onChange={(e) => setNewService({ ...newService, durationTime: Number(e.target.value) })}
+        />
+
+        <Button
+          variant="contained"
+          color="primary"
+          size="small"
+          startIcon={<AddIcon />}
+          onClick={handleAddOrUpdate}
+          sx={{ alignSelf: 'start' }}
+        >
+          {isEditMode ? 'עדכן שירות' : 'הוסף שירות'}
+        </Button>
+      </Box>
+    </Box>
   );
 };

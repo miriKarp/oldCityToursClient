@@ -43,7 +43,7 @@ export const BookATour = () => {
         if (!dateTime) return alert("יש לבחור תאריך");
 
         const newTour = {
-            time: dateTime.toDate().toISOString(), 
+            time: dateTime.toDate().toISOString(),
             invitingName,
             phone,
             note,

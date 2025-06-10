@@ -16,7 +16,6 @@ import { SignUp } from './components/auth/signUp.component';
 import { Home } from './components/layout/home.component';
 import { BookATour } from './components/bookATour.component';
 import { Admin } from './components/admin/admin.component';
-import { OrderTour } from "./components/orderTour.component";
 import { BusinessDetails } from "./components/admin/businessDetails.component";
 import { ServicesList } from "./components/admin/servicesList.component";
 import Layout from './components/layout/layout.component';
@@ -38,14 +37,6 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BookATour />
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: "OrderTour",
-        element: (
-          <ProtectedRoute>
-            <OrderTour />
           </ProtectedRoute>
         )
       },
