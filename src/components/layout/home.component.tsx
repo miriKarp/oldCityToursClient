@@ -1,8 +1,12 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { fetchServices } from "../../redux/slices/servicesSlices";
 // import { useDispatch } from 'react-redux';
 // import { AppDispatch } from '../redux/store';
 // import { logoutUser } from '../redux/actions/userAction';
 // import { useNavigate } from 'react-router-dom';
-import { Button, Box, Typography } from "@mui/material"
+import { Button, Box, Typography, List, ListItem, ListItemText, CircularProgress } from "@mui/material"
 import { Link } from "react-router-dom"
 // import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
@@ -23,6 +27,14 @@ export const Home = () => {
     //     dispatch(logoutUser());
     //     navigate('/home');
     // };
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    const { services, loading, error } = useSelector((state: RootState) => state.services);
+
+    useEffect(() => {
+        dispatch(fetchServices());
+    }, [dispatch]);
 
     return (
         <Box
@@ -77,7 +89,27 @@ export const Home = () => {
                 >
                     לקביעת סיור
                 </Button>
+
+                {loading && <CircularProgress color="inherit" size={24} />}
+                {error && <Typography color="error">{error}</Typography>}
+
+                {!loading && !error && (
+                    <>
+                        <Typography variant="h5" color="white">השירותים שלנו:</Typography>
+                        <ul style={{ padding: 0, color: "white" }}>
+                            {services.map((service) => (
+                                <li key={service._id} style={{ marginBottom: '0.5rem', listStyle: 'none' }}>
+                                    {service.description} - ₪{service.price} - {service.durationTime} דקות
+                                </li>
+                            ))}
+                        </ul>
+                    </>
+                )}
             </Box>
         </Box>
     );
 }
+
+
+
+
