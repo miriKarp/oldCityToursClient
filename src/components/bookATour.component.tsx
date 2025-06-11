@@ -54,6 +54,13 @@ export const BookATour = () => {
         try {
             await dispatch(createTour(newTour));
             alert("הסיור נשלח בהצלחה!");
+
+            setDateTime(dayjs());
+            setInvitingName('');
+            setPhone('');
+            setNote('');
+            setGroup(false);
+            setTourType(ToursTypes.WesternWallTunnels);
         } catch (err) {
             alert("שגיאה בשליחת הסיור");
         }

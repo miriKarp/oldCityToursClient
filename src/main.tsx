@@ -19,6 +19,8 @@ import { Admin } from './components/admin/admin.component';
 import { BusinessDetails } from "./components/admin/businessDetails.component";
 import { ServicesList } from "./components/admin/servicesList.component";
 import Layout from './components/layout/layout.component';
+import { ToursList } from './components/admin/toursList.component';
+import { CustomersList } from './components/admin/customersList.component';
 
 
 const router = createBrowserRouter([
@@ -30,8 +32,10 @@ const router = createBrowserRouter([
       { path: "SignIn", element: <SignIn /> },
       { path: "SignUp", element: <SignUp /> },
       { path: "Home", element: <Home /> },
-      { path: "BusinessDetails", element: <BusinessDetails /> },
+      { path: "TourList", element: <ToursList /> },
       { path: "ServicesList", element: <ServicesList /> },
+      { path: "CustomersList", element: <CustomersList /> },
+      { path: "BusinessDetails", element: <BusinessDetails /> },
       {
         path: "BookATour",
         element: (
@@ -46,7 +50,10 @@ const router = createBrowserRouter([
           <ProtectedRoute requireManager={true}>
             <Admin />
           </ProtectedRoute>
-        )
+        ), children: [{ path: "TourList", element: <ToursList /> },
+        { path: "ServicesList", element: <ServicesList /> },
+        { path: "CustomersList", element: <CustomersList /> },
+        { path: "BusinessDetails", element: <BusinessDetails /> },],
       },
     ]
   }
