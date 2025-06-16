@@ -44,7 +44,7 @@ export const loadUserFromStorage = () => (dispatch: AppDispatch) => {
     }
 };
 
-export const logoutUser = () => (dispatch: AppDispatch) => {
+export const logOutUser = () => (dispatch: AppDispatch) => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     dispatch(logout());
