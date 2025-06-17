@@ -45,13 +45,8 @@ export const Header = () => {
                     <img src="/images/logo.png" alt="Logo" style={{ height: '40px', marginLeft: '8px', }} />
                     <span style={{ fontSize: '1.5rem', fontWeight: '600' }}>סיורי העיר העתיקה</span>
                 </Box>
-
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                    {isAdmin && (
-                        <IconButton component={Link} to="/Admin" sx={{ color: '#4d2e1a' }}>
-                            <ManageAccountsOutlinedIcon />
-                        </IconButton>
-                    )}
+
                     {!user && (
                         <IconButton component={Link} to="/signin" sx={{ color: '#4d2e1a' }}>
                             <PersonOutlineOutlinedIcon />
@@ -66,6 +61,11 @@ export const Header = () => {
                                 <LogoutIcon sx={{ transform: 'scaleX(-1)' }} />
                             </IconButton>
                         </>
+                    )}
+                    {isAdmin && (
+                        <IconButton component={Link} to="/Admin" sx={{ color: '#4d2e1a' }}>
+                            <ManageAccountsOutlinedIcon />
+                        </IconButton>
                     )}
                     <IconButton component={Link} to="/InvitedTours" sx={{ color: '#4d2e1a' }}>
                         <ShoppingCartOutlinedIcon sx={{ transform: 'scaleX(-1)' }} />

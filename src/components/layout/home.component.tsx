@@ -61,18 +61,6 @@ export const Home = () => {
                     textAlign: { xs: 'center', md: 'right' }
                 }}
             >
-                <Typography
-                    variant="h5"
-                    sx={{
-                        color: 'white',
-                        textShadow: '1px 1px 3px #000',
-                        fontFamily: 'Cinzel, serif',
-                        textAlign: 'inherit',
-                        fontSize: { xs: '1.2rem', sm: '1.5rem', md: '2.125rem' }
-                    }}
-                >
-                    {user.name ? `שלום ${user.name}` : ""}
-                </Typography>
 
                 {loading && <CircularProgress color="inherit" size={24} />}
                 {error && <Typography color="error">{error}</Typography>}

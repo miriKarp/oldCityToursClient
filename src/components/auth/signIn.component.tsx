@@ -20,12 +20,7 @@ export const SignIn = () => {
             if (response && response.user) {
                 localStorage.setItem("user", JSON.stringify(response.user));
                 localStorage.setItem("token", response.token);
-
-                if (response.user.isManager) {
-                    navigate('/Admin');
-                } else {
-                    navigate('/Home');
-                }
+                navigate('/Home');
             }
         } catch (err) {
             console.error('Login failed', err);
