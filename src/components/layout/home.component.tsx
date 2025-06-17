@@ -9,7 +9,7 @@ import { styled } from '@mui/system';
 
 export const Home = () => {
 
-    const user = JSON.parse(localStorage.getItem("Name")!);
+    const user = JSON.parse(localStorage.getItem("user")!);
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -71,7 +71,7 @@ export const Home = () => {
                         fontSize: { xs: '1.2rem', sm: '1.5rem', md: '2.125rem' }
                     }}
                 >
-                    {user ? `שלום ${user}` : ""}
+                    {user.name ? `שלום ${user.name}` : ""}
                 </Typography>
 
                 {loading && <CircularProgress color="inherit" size={24} />}

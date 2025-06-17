@@ -2,6 +2,7 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
@@ -13,10 +14,9 @@ export const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
+    const isAdmin = user && user.isManager;
+
     const handleLogout = () => {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        localStorage.removeItem("name");
         dispatch(logOutUser());
         navigate('/home');
     };
@@ -47,6 +47,11 @@ export const Header = () => {
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    {isAdmin && (
+                        <IconButton component={Link} to="/Admin" sx={{ color: '#4d2e1a' }}>
+                            <ManageAccountsOutlinedIcon />
+                        </IconButton>
+                    )}
                     {!user && (
                         <IconButton component={Link} to="/signin" sx={{ color: '#4d2e1a' }}>
                             <PersonOutlineOutlinedIcon />
@@ -58,12 +63,12 @@ export const Header = () => {
                                 שלום {user.name}
                             </Typography>
                             <IconButton onClick={handleLogout} sx={{ color: '#4d2e1a' }}>
-                                <LogoutIcon />
+                                <LogoutIcon sx={{ transform: 'scaleX(-1)' }} />
                             </IconButton>
                         </>
                     )}
-                    <IconButton component={Link} to="/cart" sx={{ color: '#4d2e1a' }}>
-                        <ShoppingCartOutlinedIcon />
+                    <IconButton component={Link} to="/InvitedTours" sx={{ color: '#4d2e1a' }}>
+                        <ShoppingCartOutlinedIcon sx={{ transform: 'scaleX(-1)' }} />
                     </IconButton>
                 </Box>
             </Toolbar>
