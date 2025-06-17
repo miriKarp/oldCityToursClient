@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getTours, postTour } from '../../api/data.api';
+import { deleteTour, getTours, postTour, putTour } from '../../api/data.api';
 import { ToursTypes } from '../../enums/toursTypes';
 
 interface Tour {
-    id: number;
+    _id: string;
     time: string;
     invitingName: string;
     phone: string;
@@ -31,7 +31,7 @@ export const fetchTours = createAsyncThunk(
             const data = await getTours();
 
             const adaptedData = data.map((tour: any) => ({
-                id: tour._id,
+                _id: tour._id,
                 time: tour.time,
                 invitingName: tour.invitingName,
                 phone: tour.phone,
@@ -59,6 +59,31 @@ export const addTour = createAsyncThunk(
     }
 );
 
+export const updateTour = createAsyncThunk(
+    'tours/updateTour',
+    async (tourData: Tour, thunkAPI) => {
+        try {
+            const updated = await putTour(tourData);
+            return updated;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue("שגיאה בעדכון הסיור");
+        }
+    }
+);
+
+export const removeTour = createAsyncThunk<string, string, { rejectValue: string }>(
+    'tours/removeTour',
+    async (id, thunkAPI) => {
+        try {
+            await deleteTour(id);
+            return id;
+        } catch (error: any) {
+            return thunkAPI.rejectWithValue('שגיאה במחיקת הסיור');
+        }
+    }
+);
+
+
 
 const toursSlice = createSlice({
     name: 'tours',
@@ -77,8 +102,21 @@ const toursSlice = createSlice({
             .addCase(fetchTours.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
-            });
-    },
+            })
+            .addCase(addTour.fulfilled, (state, action) => {
+                state.tours.push(action.payload);
+            })
+        .addCase(updateTour.fulfilled, (state, action) => {
+            const index = state.tours.findIndex(t => t._id === action.payload.id);
+            if (index !== -1) {
+                state.tours[index] = action.payload;
+            }
+        })
+        .addCase(removeTour.fulfilled, (state, action) => {
+            state.tours = state.tours.filter(t => t._id !== action.payload);
+        });
+
+},
 });
 
 export default toursSlice.reducer;

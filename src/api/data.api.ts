@@ -1,4 +1,5 @@
 import axiosData from './axiosData';
+import { Tour } from '../types/Tour';
 
 export const getUsers = async () => {
   try {
@@ -28,6 +29,17 @@ export const postTour = async (tourData: any) => {
     console.error("Error posting tour:", error.message || error);
     throw error;
   }
+};
+
+export const putTour = async (tourData: Tour) => {
+  const response = await axiosData.put('/tours/updateTour', tourData);
+  return response.data;
+};
+
+export const deleteTour = async (id: string) => {
+  console.log("Deleting tour with ID:", id);
+  const response = await axiosData.delete(`/tours/deleteTour/${id}`);
+  return response.data;
 };
 
 export const getServices = async () => {

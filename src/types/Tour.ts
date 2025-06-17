@@ -1,7 +1,7 @@
 import { ToursTypes } from "../enums/toursTypes"
 
 export type Tour = {
-    id: number,
+    _id: string,
     time: string,
     invitingName: string,
     phone: string,
