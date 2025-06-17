@@ -10,7 +10,6 @@ import './index.css'
 import { vintageTheme } from "./theme/vintageTheme";
 import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import { AppInitializer } from './components/auth/appInitializer';
-
 import { SignIn } from './components/auth/signIn.component';
 import { SignUp } from './components/auth/signUp.component';
 import { Home } from './components/layout/home.component';
@@ -21,7 +20,7 @@ import { ServicesList } from "./components/admin/servicesList.component";
 import Layout from './components/layout/layout.component';
 import { ToursList } from './components/admin/toursList.component';
 import { CustomersList } from './components/admin/customersList.component';
-
+import { InvitedTours } from './components/invitedTours.component';
 
 const router = createBrowserRouter([
   {
@@ -41,6 +40,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <BookATour />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "InvitedTours",
+        element: (
+          <ProtectedRoute>
+            <InvitedTours />
           </ProtectedRoute>
         )
       },

@@ -28,7 +28,7 @@ export const BusinessDetails = () => {
                 </Typography>
 
                 <Box sx={{ color: '#3b2f1b', fontSize: '1.1rem', lineHeight: 1.8 }}>
-                    <div>📍 כתובת: רחוב השלום 12, העיר העתיקה</div>
+                    <div>📍 רחוב משגב לדך 12, העיר העתיקה</div>
                     <div>📞 טלפון: 02-1234567</div>
                     <div>✉️ דוא"ל: tours@oldcity.co.il</div>
                     <div>🕰 שעות פעילות: א'-ה' 9:00–17:00</div>

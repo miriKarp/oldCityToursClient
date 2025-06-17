@@ -13,7 +13,12 @@ export const getUsers = async () => {
 
 export const getTours = async () => {
   try {
-    const response = await axiosData.get('/tours');
+    const token = localStorage.getItem('token');
+    const response = await axiosData.get('/tours', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error: any) {
     console.error("Error fetching tours:", error.message || error);

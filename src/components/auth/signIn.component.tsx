@@ -18,15 +18,9 @@ export const SignIn = () => {
         try {
             const response = await dispatch(loginUser(email, password));
             if (response && response.user) {
-                localStorage.setItem("name", JSON.stringify(response.user.name));
                 localStorage.setItem("user", JSON.stringify(response.user));
                 localStorage.setItem("token", response.token);
-
-                if (response.user.isManager) {
-                    navigate('/Admin');
-                } else {
-                    navigate('/Home');
-                }
+                navigate('/Home');
             }
         } catch (err) {
             console.error('Login failed', err);

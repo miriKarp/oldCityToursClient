@@ -20,7 +20,8 @@ export const SignUp = () => {
         try {
             const response = await dispatch(registerUser(name, email, password, phone));
             if (response) {
-                localStorage.setItem("name", JSON.stringify(name));
+                localStorage.setItem("user", JSON.stringify(response.user));
+                localStorage.setItem("token", response.token);
                 navigate('/Home');
             }
         } catch (err) {
