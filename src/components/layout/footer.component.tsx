@@ -50,7 +50,7 @@ export const Footer = () => {
                         rel="noopener noreferrer"
                         style={{ color: 'inherit', textDecoration: 'none' }}
                     >
-                        כתובת: רחוב השלום 12, העיר העתיקה
+                        כתובת: רחוב משגב לדך 12, העיר העתיקה
                     </a>
                 </Typography>
                 <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>

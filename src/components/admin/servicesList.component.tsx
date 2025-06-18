@@ -55,7 +55,7 @@ export const ServicesList = () => {
 
   return (
     <Box sx={{ maxWidth: 600, margin: '0 auto', padding: 2 }}>
-      <Typography variant="h5" gutterBottom>רשימת שירותים</Typography>
+      <Typography variant="h5" gutterBottom>רשימת שירותים:</Typography>
 
       <ul style={{ padding: 0 }}>
         {services.map((service) => (

@@ -73,7 +73,7 @@ export const ToursList = () => {
     return (
         <>
             <Box sx={{ padding: 2, maxWidth: 800, margin: '0 auto' }}>
-                <Typography variant="h5" gutterBottom>רשימת סיורים</Typography>
+                <Typography variant="h5" gutterBottom>רשימת סיורים:</Typography>
 
                 <FormControl sx={{ mb: 2 }}>
                     <InputLabel>מיין לפי</InputLabel>

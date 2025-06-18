@@ -9,22 +9,18 @@ import { styled } from '@mui/system';
 
 export const Home = () => {
 
-    const user = JSON.parse(localStorage.getItem("user")!);
-
     const dispatch = useDispatch<AppDispatch>();
 
     const { services, loading, error } = useSelector((state: RootState) => state.services);
 
-    const StyledListItem = styled('li')({
-        marginBottom: '0.5rem',
-        listStyle: 'none',
-    });
-
     const ServiceCard = styled(Card)({
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
         border: '1px solid white',
-        marginBottom: '1rem',
         boxShadow: 'none',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
     });
 
     useEffect(() => {
@@ -39,7 +35,7 @@ export const Home = () => {
                 backgroundPosition: 'center',
                 backgroundAttachment: 'fixed',
                 minHeight: '100vh',
-                width: '100vw',
+                width: '99vw',
                 display: 'flex',
                 justifyContent: { xs: 'center', md: 'flex-start' },
                 alignItems: { xs: 'flex-start', md: 'flex-start' },
@@ -52,13 +48,13 @@ export const Home = () => {
                 sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    alignItems: { xs: 'center', md: 'flex-end' },
+                    alignItems: 'center',
                     gap: 2,
                     padding: '1.5rem',
                     borderRadius: '8px',
-                    width: { xs: '95%', sm: '80%', md: '400px' },
+                    width: { xs: '95%', sm: '80%', md: '80%' },
                     color: 'white',
-                    textAlign: { xs: 'center', md: 'right' }
+                    margin: '0 auto',
                 }}
             >
 
@@ -67,51 +63,118 @@ export const Home = () => {
 
                 {!loading && !error && (
                     <Box sx={{ p: 2, width: '100%' }}>
-                        <Typography variant="h5" color="white" gutterBottom sx={{ textAlign: 'inherit', fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' } }}>
+                        <Typography
+                            variant="h5"
+                            color="white"
+                            gutterBottom
+                            sx={{
+                                textAlign: 'right',
+                                fontSize: { xs: '1.1rem', sm: '1.3rem', md: '1.5rem' },
+                                marginBottom: '1.5rem'
+                            }}
+                        >
                             השירותים שלנו:
                         </Typography>
-                        <ul style={{ padding: 0 }}>
+
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                justifyContent: 'center',
+                                alignItems: 'stretch',
+                                gap: '16px',
+                            }}
+                        >
                             {services.map((service) => (
-                                <StyledListItem key={service._id}>
-                                    <ServiceCard>
-                                        <CardContent>
-                                            <Typography variant="body1" color="text.primary" sx={{ textAlign: 'inherit' }}>
-                                                {service.description} - ₪{service.price} - {service.durationTime} דקות
+                                <Box
+                                    key={service._id}
+                                    sx={{
+                                        width: {
+                                            xs: '100%',
+                                            sm: 'calc(50% - 8px)',
+                                            md: 'calc(25% - 12px)',
+                                            lg: 'calc(25% - 12px)',
+                                        },
+                                        minWidth: '200px',
+                                        maxWidth: {
+                                            xs: '100%',
+                                            sm: 'calc(50% - 8px)',
+                                            md: 'calc(25% - 12px)',
+                                            lg: 'calc(25% - 12px)',
+                                        },
+                                        minHeight: '200px',
+                                        display: 'flex',
+                                        cursor: 'pointer',
+                                        transition: 'transform 0.3s ease-in-out',
+                                        '&:hover': {
+                                            transform: 'scale(1.05)',
+                                            boxShadow: '0px 0px 15px rgba(255, 255, 255, 0.5)',
+                                        }
+                                    }}
+                                >
+                                    <ServiceCard sx={{ width: '100%' }}>
+                                        <CardContent
+                                            sx={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'center',
+                                                alignItems: 'center',
+                                                textAlign: 'center',
+                                                flexGrow: 1,
+                                            }}
+                                        >
+                                            <Typography
+                                                variant="h6"
+                                                color="text.primary"
+                                                sx={{ marginBottom: '0.5rem' }}
+                                            >
+                                                {service.description}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                מחיר:  ₪{service.price}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                אורך: {service.durationTime}  דקות
                                             </Typography>
                                         </CardContent>
                                     </ServiceCard>
-                                </StyledListItem>
+                                </Box>
                             ))}
-                        </ul>
+                        </Box>
                     </Box>
                 )}
-                <Button
-                    variant="outlined"
-                    component={Link}
-                    to="/BookATour"
-                    startIcon={<HikingOutlinedIcon
-                        sx={{
-                            transform: 'rotateY(180deg)',
-                        }}
-                    />}
+                <Box
                     sx={{
-                        color: 'white',
-                        borderColor: 'white',
-                        '& .MuiButton-startIcon': {
-                            marginLeft: 1,
-                            marginRight: 0,
-                        },
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'flex-end',
                         marginTop: '1rem',
-                        width: { xs: '100%', sm: 'auto' }
+                        paddingRight: { xs: 0, sm: 2 }
                     }}
                 >
-                    לקביעת סיור
-                </Button>
+                    <Button
+                        variant="outlined"
+                        component={Link}
+                        to="/BookATour"
+                        startIcon={<HikingOutlinedIcon
+                            sx={{
+                                transform: 'rotateY(180deg)',
+                            }}
+                        />}
+                        sx={{
+                            color: 'white',
+                            borderColor: 'white',
+                            '& .MuiButton-startIcon': {
+                                marginLeft: 1,
+                                marginRight: 0,
+                            },
+                            width: { xs: '100%', sm: 'auto' },
+                        }}
+                    >
+                        לקביעת סיור
+                    </Button>
+                </Box>
             </Box>
         </Box>
     );
 }
-
-
-
-
