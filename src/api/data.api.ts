@@ -67,3 +67,14 @@ export const deleteService = async (id: string) => {
   const response = await axiosData.delete(`/services/deleteService/${id}`);
   return response.data;
 };
+
+
+export const getMyTours = async () => {
+  const token = localStorage.getItem('token');
+  const res = await axiosData.get('/users/my-tours', {
+    headers: {
+      Authorization: `${token}`,
+    },
+  });
+  return res.data;
+};
