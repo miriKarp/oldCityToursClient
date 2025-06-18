@@ -1,17 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { deleteTour, getTours, postTour, putTour } from '../../api/data.api';
-// import { Service } from '../../types/Service';
 import { Tour, NewTour } from '../../types/Tour';
-
-// interface Tour {
-//     _id: string;
-//     time: string;
-//     invitingName: string;
-//     phone: string;
-//     note: string;
-//     group: boolean;
-//     tourType: Service;
-// }
 
 interface ToursState {
     tours: Tour[];
@@ -25,28 +14,6 @@ const initialState: ToursState = {
     error: null,
 };
 
-// export const fetchTours = createAsyncThunk(
-//     'tours/fetchTours',
-//     async (_, thunkAPI) => {
-//         try {
-//             const data = await getTours();
-
-//             const adaptedData = data.map((tour: any) => ({
-//                 _id: tour._id,
-//                 time: tour.time,
-//                 invitingName: tour.invitingName,
-//                 phone: tour.phone,
-//                 note: tour.note,
-//                 group: tour.group,
-//                 tourType: tour.tourType,
-//             }));
-
-//             return adaptedData as Tour[];
-//         } catch (error: any) {
-//             return thunkAPI.rejectWithValue("שגיאה בטעינת הסיורים");
-//         }
-//     }
-// );
 export const fetchTours = createAsyncThunk<Tour[], void, { rejectValue: string }>(
     'tours/fetchTours',
     async (_, thunkAPI) => {

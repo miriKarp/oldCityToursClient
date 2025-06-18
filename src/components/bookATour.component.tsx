@@ -12,7 +12,6 @@ import createCache from '@emotion/cache';
 import { useDispatch } from 'react-redux';
 import { createTour } from '../redux/actions/tourActions';
 import { AppDispatch } from '../redux/store';
-import { ToursTypes } from '../enums/toursTypes';
 import dayjs, { Dayjs } from 'dayjs';
 import { getAllServices } from '../api/services.api';
 
@@ -33,7 +32,6 @@ export const BookATour = () => {
     const [phone, setPhone] = React.useState('');
     const [note, setNote] = React.useState('');
     const [group, setGroup] = React.useState(false);
-    const [tourType, setTourType] = React.useState<ToursTypes>(ToursTypes.WesternWallTunnels);
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -61,13 +59,16 @@ export const BookATour = () => {
         e.preventDefault();
         if (!dateTime) return alert("יש לבחור תאריך");
 
+        const selectedService = services.find(service => service._id === selectedServiceId);
+        if (!selectedService) return alert("שירות לא נבחר כראוי");
+
         const newTour = {
             time: dateTime.toDate().toISOString(),
             invitingName,
             phone,
             note,
             group,
-            tourType: selectedServiceId,
+            tourType: selectedService,
         };
 
         try {
