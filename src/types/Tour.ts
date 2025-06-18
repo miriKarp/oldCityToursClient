@@ -1,4 +1,4 @@
-import { ToursTypes } from "../enums/toursTypes"
+import { Service } from './Service';
 
 export type Tour = {
     _id: string,
@@ -7,5 +7,7 @@ export type Tour = {
     phone: string,
     note: string,
     group: boolean,
-    tourType: ToursTypes,
+    tourType: Service,
 }
+
+export type NewTour = Omit<Tour, '_id'>;

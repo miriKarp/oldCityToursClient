@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, FormControl, FormControlLabel, InputLabel, MenuItem, Select, Switch, TextField } from "@mui/material";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -13,6 +14,7 @@ import { createTour } from '../redux/actions/tourActions';
 import { AppDispatch } from '../redux/store';
 import { ToursTypes } from '../enums/toursTypes';
 import dayjs, { Dayjs } from 'dayjs';
+import { getAllServices } from '../api/services.api';
 
 const cacheRtl = createCache({
     key: 'pickers-rtl-demo',
@@ -23,6 +25,9 @@ export const BookATour = () => {
 
     const dispatch = useDispatch<AppDispatch>();
 
+    const [services, setServices] = useState<any[]>([]);
+    const [selectedServiceId, setSelectedServiceId] = useState('');
+
     const [dateTime, setDateTime] = React.useState<Dayjs | null>(dayjs());
     const [invitingName, setInvitingName] = React.useState('');
     const [phone, setPhone] = React.useState('');
@@ -30,6 +35,20 @@ export const BookATour = () => {
     const [group, setGroup] = React.useState(false);
     const [tourType, setTourType] = React.useState<ToursTypes>(ToursTypes.WesternWallTunnels);
 
+    useEffect(() => {
+        const fetchServices = async () => {
+            try {
+                const data = await getAllServices();
+                setServices(data);
+                if (data.length > 0) {
+                    setSelectedServiceId(data[0]._id);
+                }
+            } catch (error) {
+                console.error('שגיאה בטעינת שירותים:', error);
+            }
+        };
+        fetchServices();
+    }, []);
 
     const existingTheme = useTheme();
 
@@ -48,7 +67,7 @@ export const BookATour = () => {
             phone,
             note,
             group,
-            tourType,
+            tourType: selectedServiceId,
         };
 
         try {
@@ -56,11 +75,11 @@ export const BookATour = () => {
             alert("הסיור נשלח בהצלחה!");
 
             setDateTime(dayjs());
-            setInvitingName('');
-            setPhone('');
-            setNote('');
+            setInvitingName(' ');
+            setPhone(' ');
+            setNote(' ');
             setGroup(false);
-            setTourType(ToursTypes.WesternWallTunnels);
+            setSelectedServiceId(services[0]?._id || '');
         } catch (err) {
             alert("שגיאה בשליחת הסיור");
         }
@@ -72,15 +91,16 @@ export const BookATour = () => {
 
                     <InputLabel id="tour-type-label">סוג הסיור</InputLabel>
                     <Select
-                        value={tourType}
-                        onChange={(e) => setTourType(Number(e.target.value))}
+                        labelId="tour-type-label"
+                        value={selectedServiceId}
+                        onChange={(e) => setSelectedServiceId(e.target.value)}
                         label="סוג הסיור"
                     >
-                        <MenuItem value={ToursTypes.WesternWallTunnels}>מנהרות הכותל</MenuItem>
-                        <MenuItem value={ToursTypes.DavidCityTour}> עיר דוד</MenuItem>
-                        <MenuItem value={ToursTypes.jewishQuarterTour}> הרובע היהודי</MenuItem>
-                        <MenuItem value={ToursTypes.tourBetweenWalls}> סיור בין החומות</MenuItem>
-
+                        {services.map(service => (
+                            <MenuItem key={service._id} value={service._id}>
+                                {service.description}
+                            </MenuItem>
+                        ))}
                     </Select>
 
                     <CacheProvider value={cacheRtl}>

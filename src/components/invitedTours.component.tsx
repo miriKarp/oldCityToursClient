@@ -36,7 +36,7 @@ export const InvitedTours = () => {
                             <strong>{tour.invitingName}</strong><br />
                             תאריך: {new Date(tour.time).toLocaleString()}<br />
                             טלפון: {tour.phone}<br />
-                            סוג סיור: {tour.tourType}<br />
+                            סוג סיור: {tour.tourType?.description || 'לא ידוע'}<br />
                             קבוצתי: {tour.group ? 'כן' : 'לא'}<br />
                             הערות: {tour.note}
                         </li>
