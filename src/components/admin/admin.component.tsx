@@ -2,6 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import { CustomersList } from "./customersList.component";
 import { ToursList } from "./toursList.component";
 import { ServicesList } from "./servicesList.component";
+import { BusinessDetails } from './businessDetails.component';
 import { Box, Typography, ThemeProvider } from '@mui/material';
 import { vintageTheme } from '../../theme/vintageTheme';
 
@@ -67,6 +68,7 @@ export const Admin = () => {
                         },
                     }}
                 >
+                    <Link to="BusinessDetails">פרטי העסק</Link>
                     <Link to="CustomersList">לקוחות</Link>
                     <Link to="TourList">סיורים</Link>
                     <Link to="ServicesList">שירותים</Link>
@@ -89,6 +91,7 @@ export const Admin = () => {
                     }}
                 >
                     <Routes>
+                        <Route path="BusinessDetails" element={<BusinessDetails />} />
                         <Route path="CustomersList" element={<CustomersList />} />
                         <Route path="TourList" element={<ToursList />} />
                         <Route path="ServicesList" element={<ServicesList />} />

@@ -3,6 +3,7 @@ import userReducer from './slices/userSlices';
 import customersReducer from './slices/customersSlices';
 import toursReducer from "./slices/toursSlices";
 import servicesReducer from './slices/servicesSlices';
+import businessReducer from './slices/businessSlice';
 
 const userFromStorage = localStorage.getItem("user");
 const tokenFromStorage = localStorage.getItem("token");
@@ -13,6 +14,7 @@ const store = configureStore({
     customers: customersReducer,
     tours: toursReducer,
     services: servicesReducer,
+    business: businessReducer,
   },
   preloadedState: {
     user: {

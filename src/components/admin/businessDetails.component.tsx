@@ -1,22 +1,67 @@
-import { Card, CardContent, Typography, Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import {
+    Card, CardContent, Typography, Box, CircularProgress, TextField, Button, Stack
+} from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchBusiness, updateBusiness } from '../../redux/slices/businessSlice';
+import { RootState, AppDispatch } from '../../redux/store';
 
 export const BusinessDetails = () => {
+    const dispatch = useDispatch<AppDispatch>();
+    const { business, loading, error } = useSelector((state: RootState) => state.business);
+
+    const [editMode, setEditMode] = useState(false);
+    const [formValues, setFormValues] = useState({
+        address: '',
+        phone: '',
+        email: '',
+        openingHours: ''
+    });
+
+    useEffect(() => {
+        dispatch(fetchBusiness());
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (business) {
+            setFormValues({
+                address: business.address || '',
+                phone: business.phone || '',
+                email: business.email || '',
+                openingHours: business.openingHours || ''
+            });
+        }
+    }, [business]);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    };
+
+    const handleSave = () => {
+        dispatch(updateBusiness(formValues));
+        setEditMode(false);
+    };
+
+    if (loading) return <CircularProgress />;
+    if (error) return <Typography color="error">שגיאה: {error}</Typography>;
+    if (!business) return <Typography>לא נמצאו פרטי עסק</Typography>;
+
     return (
         <Card
             sx={{
-                maxWidth: 400,
+                maxWidth: 500,
                 backgroundColor: '#f8f1e4',
                 border: '1px solid #c9b798',
                 borderRadius: 3,
                 boxShadow: 3,
                 fontFamily: `'David Libre', serif`,
-                direction: 'rtl'
+                direction: 'rtl',
+                padding: 2
             }}
         >
             <CardContent>
                 <Typography
                     variant="h5"
-                    component="div"
                     sx={{
                         color: '#5a3e1b',
                         borderBottom: '2px solid #bfa87a',
@@ -24,15 +69,65 @@ export const BusinessDetails = () => {
                         marginBottom: 2
                     }}
                 >
-                    צור קשר
+                    פרטי העסק
                 </Typography>
 
-                <Box sx={{ color: '#3b2f1b', fontSize: '1.1rem', lineHeight: 1.8 }}>
-                    <div>📍 רחוב משגב לדך 12, העיר העתיקה</div>
-                    <div>📞 טלפון: 02-1234567</div>
-                    <div>✉️ דוא"ל: tours@oldcity.co.il</div>
-                    <div>🕰 שעות פעילות: א'-ה' 9:00–17:00</div>
-                </Box>
+                <Stack spacing={2}>
+                    {editMode ? (
+                        <>
+                            <TextField
+                                name="address"
+                                label="כתובת"
+                                value={formValues.address}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                            <TextField
+                                name="phone"
+                                label="טלפון"
+                                value={formValues.phone}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                            <TextField
+                                name="email"
+                                label="דואל"
+                                value={formValues.email}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                            <TextField
+                                name="openingHours"
+                                label="שעות פעילות"
+                                value={formValues.openingHours}
+                                onChange={handleChange}
+                                fullWidth
+                            />
+                            <Box sx={{ display: 'flex', gap: 2 }}>
+                                <Button variant="contained" color="primary" onClick={handleSave}>
+                                    שמור
+                                </Button>
+                                <Button variant="outlined" color="secondary" onClick={() => setEditMode(false)}>
+                                    ביטול
+                                </Button>
+                            </Box>
+                        </>
+                    ) : (
+                        <>
+                            <Box>📍 {business.address || 'כתובת לא זמינה'}</Box>
+                            <Box>📞 {business.phone || 'טלפון לא זמין'}</Box>
+                            <Box>✉️ {business.email || 'דוא"ל לא זמין'}</Box>
+                            <Box>🕰 {business.openingHours || 'שעות לא זמינות'}</Box>
+                            <Button
+                                variant="outlined"
+                                sx={{ marginTop: 2 }}
+                                onClick={() => setEditMode(true)}
+                            >
+                                ערוך פרטים
+                            </Button>
+                        </>
+                    )}
+                </Stack>
             </CardContent>
         </Card>
     );
