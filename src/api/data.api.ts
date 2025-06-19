@@ -42,14 +42,12 @@ export const putTour = async (tourData: Tour) => {
 };
 
 export const deleteTour = async (id: string) => {
-  console.log("Deleting tour with ID:", id);
   const response = await axiosData.delete(`/tours/deleteTour/${id}`);
   return response.data;
 };
 
 export const getServices = async () => {
   const response = await axiosData.get('/services/services');
-  console.log("Fetched services:", response.data);
   return response.data;
 };
 
@@ -58,7 +56,6 @@ export const postService = async (service: any) => {
   return response.data;
 };
 export const putService = async (service: any) => {
-  console.log("Updating service:", service);
   const response = await axiosData.put('/services/updateService', service);
   return response.data;
 };
