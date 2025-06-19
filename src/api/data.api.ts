@@ -3,7 +3,7 @@ import { Tour } from '../types/Tour';
 
 export const getUsers = async () => {
   try {
-    const response = await axiosData.get('/users');
+    const response = await axiosData.get('/users/users');
     return response.data;
   } catch (error: any) {
     console.error("Error fetching users:", error.message || error);
@@ -14,7 +14,7 @@ export const getUsers = async () => {
 export const getTours = async () => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axiosData.get('/tours', {
+    const response = await axiosData.get('/tours/tours', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -68,10 +68,9 @@ export const deleteService = async (id: string) => {
   return response.data;
 };
 
-
 export const getMyTours = async () => {
   const token = localStorage.getItem('token');
-  const res = await axiosData.get('/users/my-tours', {
+  const res = await axiosData.get('/users/userTours', {
     headers: {
       Authorization: `${token}`,
     },
