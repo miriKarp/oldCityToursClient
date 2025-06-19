@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/actions/userAction';
 import { AppDispatch, RootState } from '../../redux/store';
@@ -30,21 +30,19 @@ export const SignUp = () => {
     };
 
     return (
-        <>
-            <div>
-                <h3>להרשמה</h3>
-                <TextField fullWidth label="שם" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-                <TextField fullWidth label="סיסמה" id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <TextField fullWidth label="פלאפון" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                <Button variant="outlined" onClick={handleRegister} disabled={signUpLoading}>
-                    {signUpLoading ? 'טוען...' : 'הרשמה'}
-                </Button>
-                {signUpError && <p style={{ color: 'red' }}>{signUpError}</p>}
-                <Button variant="outlined" href="#outlined-buttons" component={Link} to="/signin">
-                    מחוברים? לחצו כאן לכניסה
-                </Button>
-            </div>
-        </>
+        <Box sx={{ minWidth: 300, margin: 2 }}>
+            <h3>להרשמה</h3>
+            <TextField fullWidth label="שם" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+            <TextField fullWidth label="סיסמה" id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <TextField fullWidth label="פלאפון" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <Button variant="outlined" onClick={handleRegister} disabled={signUpLoading}>
+                {signUpLoading ? 'טוען...' : 'הרשמה'}
+            </Button>
+            {signUpError && <p style={{ color: 'red' }}>{signUpError}</p>}
+            <Button variant="outlined" href="#outlined-buttons" component={Link} to="/signin">
+                מחוברים? לחצו כאן להתחברות
+            </Button>
+        </Box>
     );
 };

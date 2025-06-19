@@ -54,10 +54,8 @@ export const BusinessDetails = () => {
         <Card
             sx={{
                 maxWidth: 500,
-                backgroundColor: '#f8f1e4',
-                border: '1px solid #c9b798',
-                borderRadius: 3,
-                boxShadow: 3,
+                border: 'none',
+                boxShadow: 'none',
                 fontFamily: `'David Libre', serif`,
                 direction: 'rtl',
                 padding: 2

@@ -14,6 +14,7 @@ import { createTour } from '../redux/actions/tourActions';
 import { AppDispatch, RootState } from '../redux/store';
 import dayjs, { Dayjs } from 'dayjs';
 import { getAllServices } from '../api/services.api';
+import { useParams } from 'react-router-dom';
 
 const cacheRtl = createCache({
     key: 'pickers-rtl-demo',
@@ -21,8 +22,11 @@ const cacheRtl = createCache({
 });
 
 export const BookATour = () => {
+
     const dispatch = useDispatch<AppDispatch>();
     const user = useSelector((state: RootState) => state.user.user);
+
+    const { serviceId } = useParams<{ serviceId?: string }>();
 
     useEffect(() => {
         if (user) {
@@ -42,7 +46,7 @@ export const BookATour = () => {
     const [dateTime, setDateTime] = useState<Dayjs | null>(dayjs());
     const [invitingName, setInvitingName] = React.useState('');
     const [phone, setPhone] = useState('');
-    const [note, setNote] = useState('');
+    const [note, setNote] = useState(' ');
     const [group, setGroup] = useState(false);
 
     useEffect(() => {
@@ -50,15 +54,18 @@ export const BookATour = () => {
             try {
                 const data = await getAllServices();
                 setServices(data);
-                if (data.length > 0) {
-                    setSelectedServiceId(data[0]._id);
-                }
+                if (serviceId && data.find((s: { _id: string; }) => s._id === serviceId)) {
+                    setSelectedServiceId(serviceId);
+                } else
+                    if (data.length > 0) {
+                        setSelectedServiceId(data[0]._id);
+                    }
             } catch (error) {
                 console.error('שגיאה בטעינת שירותים:', error);
             }
         };
         fetchServices();
-    }, []);
+    }, [serviceId]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -91,82 +98,82 @@ export const BookATour = () => {
         }
     };
 
-return (
-    <form onSubmit={handleSubmit}>
-        <Box sx={{ minWidth: 300 }}>
-            <FormControl fullWidth sx={{ gap: 2 }}>
-                <InputLabel id="tour-type-label">סוג הסיור</InputLabel>
-                <InputLabel id="tour-type-label">סוג הסיור</InputLabel>
-                <Select
-                    labelId="tour-type-label"
-                    value={selectedServiceId}
-                    onChange={(e) => setSelectedServiceId(e.target.value)}
-                    label="סוג הסיור"
-                >
-                    {services.map(service => (
-                        <MenuItem key={service._id} value={service._id}>
-                            {service.description}
-                        </MenuItem>
-                    ))}
-                </Select>
+    return (
+        <form onSubmit={handleSubmit}>
+            <Box sx={{ minWidth: 300, margin: 2 }}>
+                <FormControl fullWidth sx={{ gap: 2 }}>
+                    <InputLabel id="tour-type-label">סוג הסיור</InputLabel>
+                    <InputLabel id="tour-type-label">סוג הסיור</InputLabel>
+                    <Select
+                        labelId="tour-type-label"
+                        value={selectedServiceId}
+                        onChange={(e) => setSelectedServiceId(e.target.value)}
+                        label="סוג הסיור"
+                    >
+                        {services.map(service => (
+                            <MenuItem key={service._id} value={service._id}>
+                                {service.description}
+                            </MenuItem>
+                        ))}
+                    </Select>
 
 
-                <CacheProvider value={cacheRtl}>
-                    <ThemeProvider theme={theme}>
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DateTimePicker
-                                label="תאריך ושעה"
-                                value={dateTime}
-                                onChange={(newValue) => setDateTime(newValue)}
-                                sx={{ marginTop: 2, marginBottom: 1 }}
-                                slotProps={{
-                                    desktopPaper: { dir: 'rtl' },
-                                    mobilePaper: { dir: 'rtl' },
-                                }}
+                    <CacheProvider value={cacheRtl}>
+                        <ThemeProvider theme={theme}>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DateTimePicker
+                                    label="תאריך ושעה"
+                                    value={dateTime}
+                                    onChange={(newValue) => setDateTime(newValue)}
+                                    sx={{ marginTop: 2, marginBottom: 1 }}
+                                    slotProps={{
+                                        desktopPaper: { dir: 'rtl' },
+                                        mobilePaper: { dir: 'rtl' },
+                                    }}
+                                />
+                            </LocalizationProvider>
+                        </ThemeProvider>
+                    </CacheProvider>
+
+                    <TextField
+                        label="הערה לבעל העסק"
+                        value={note}
+                        onChange={(e) => setNote(e.target.value)}
+                        variant="outlined"
+                        margin="dense"
+                    />
+
+                    <TextField
+                        label="שם משתמש"
+                        value={invitingName}
+                        onChange={(e) => setInvitingName(e.target.value)}
+                        variant="outlined"
+                        margin="dense"
+                    />
+
+                    <TextField
+                        label="טלפון משתמש"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        variant="outlined"
+                        margin="dense"
+                    />
+
+                    <FormControlLabel
+                        control={
+                            <Switch
+                                checked={group}
+                                onChange={(e) => setGroup(e.target.checked)}
                             />
-                        </LocalizationProvider>
-                    </ThemeProvider>
-                </CacheProvider>
+                        }
+                        label="סיור קבוצתי"
+                    />
 
-                <TextField
-                    label="הערה לבעל העסק"
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
-                    variant="outlined"
-                    margin="dense"
-                />
-
-                <TextField
-                    label="שם משתמש"
-                    value={invitingName}
-                    onChange={(e) => setInvitingName(e.target.value)}
-                    variant="outlined"
-                    margin="dense"
-                />
-
-                <TextField
-                    label="טלפון משתמש"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    variant="outlined"
-                    margin="dense"
-                />
-
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={group}
-                            onChange={(e) => setGroup(e.target.checked)}
-                        />
-                    }
-                    label="סיור קבוצתי"
-                />
-
-                <Button type="submit" variant="contained" sx={{ marginTop: 2 }}>
-                    שלח הזמנה
-                </Button>
-            </FormControl>
-        </Box>
-    </form>
-);
+                    <Button type="submit" variant="contained" sx={{ marginTop: 2 }}>
+                        שלח הזמנה
+                    </Button>
+                </FormControl>
+            </Box>
+        </form>
+    );
 };

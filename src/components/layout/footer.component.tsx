@@ -1,14 +1,29 @@
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import { AppDispatch, RootState } from '../../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchBusiness } from '../../redux/slices/businessSlice';
 
 export const Footer = () => {
 
-    const address = "רחוב משגב לדך 12, העיר העתיקה";
+    const { business, loading, error } = useSelector((state: RootState) => state.business);
+
+    const address = business?.address || "כתובת לא זמינה";
     const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(fetchBusiness());
+    }, [dispatch]);
+
+    if (loading) return <CircularProgress />;
+    if (error) return <Typography color="error">שגיאה: {error}</Typography>;
+    if (!business) return <Typography>לא נמצאו פרטי עסק</Typography>;
 
     return (
         <Box
@@ -50,20 +65,20 @@ export const Footer = () => {
                         rel="noopener noreferrer"
                         style={{ color: 'inherit', textDecoration: 'none' }}
                     >
-                        כתובת: רחוב משגב לדך 12, העיר העתיקה
+                        {business?.address || 'כתובת לא זמינה'}
                     </a>
                 </Typography>
                 <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                     <PhoneOutlinedIcon sx={{ fontSize: '1rem', color: '#a67c52' }} />
-                    טלפון: <a href="tel:+97221234567" style={{ color: 'inherit', textDecoration: 'none' }}>02-1234567</a>
+                    טלפון: <a href="tel:+97221234567" style={{ color: 'inherit', textDecoration: 'none' }}>{business?.phone || 'טלפון לא זמין'}</a>
                 </Typography>
                 <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                     <EmailOutlinedIcon sx={{ fontSize: '1rem', color: '#a67c52' }} />
-                    דוא"ל: <a href="mailto:excitingtours100@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>excitingtours100@gmail.com</a>
+                    דוא"ל: <a href="mailto:excitingtours100@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>{business?.email || 'דוא"ל לא זמין'}</a>
                 </Typography>
                 <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                     <AccessTimeOutlinedIcon sx={{ fontSize: '1rem', color: '#a67c52' }} />
-                    שעות פעילות: א'-ה' 9:00–17:00
+                    {business?.openingHours || 'שעות לא זמינות'}
                 </Typography>
             </Box>
 

@@ -1,4 +1,4 @@
-import axiosData from './axiosData';
+import axiosData from './axiosData.api';
 
 export const getAllServices = async () => {
     const response = await axiosData.get('/services/services');

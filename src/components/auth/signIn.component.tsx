@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../redux/actions/userAction';
 import { AppDispatch, RootState } from '../../redux/store';
@@ -28,9 +28,9 @@ export const SignIn = () => {
     };
 
 
-    return <>
-        <div>
-            <h3>לכניסה</h3>
+    return (
+        <Box sx={{ minWidth: 300, margin: 2 }}>
+            <h3>להתחברות</h3>
             <TextField fullWidth label="אימייל" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <TextField fullWidth label="סיסמה" id="password" type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
             <Button variant="outlined" href="#outlined-buttons" onClick={handleLogin} disabled={signInLoading}>
@@ -42,6 +42,6 @@ export const SignIn = () => {
                     עוד לא מחוברים? להרשמה לחצו כאן
                 </Button>
             </Link>
-        </div>
-    </>
+        </Box>
+    );
 }

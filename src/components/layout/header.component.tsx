@@ -1,4 +1,4 @@
-import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -48,28 +48,36 @@ export const Header = () => {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
 
                     {!user && (
-                        <IconButton component={Link} to="/signin" sx={{ color: '#4d2e1a' }}>
-                            <PersonOutlineOutlinedIcon />
-                        </IconButton>
+                        <Tooltip title="התחבר/הירשם" arrow>
+                            <IconButton component={Link} to="/signin" sx={{ color: '#4d2e1a' }}>
+                                <PersonOutlineOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
                     )}
                     {user && (
                         <>
                             <Typography sx={{ fontWeight: 500, fontSize: '1rem' }}>
                                 שלום {user.name}
                             </Typography>
-                            <IconButton onClick={handleLogout} sx={{ color: '#4d2e1a' }}>
-                                <LogoutIcon sx={{ transform: 'scaleX(-1)' }} />
-                            </IconButton>
+                            <Tooltip title="התנתק" arrow>
+                                <IconButton onClick={handleLogout} sx={{ color: '#4d2e1a' }}>
+                                    <LogoutIcon sx={{ transform: 'scaleX(-1)' }} />
+                                </IconButton>
+                            </Tooltip>
                         </>
                     )}
                     {isAdmin && (
-                        <IconButton component={Link} to="/Admin" sx={{ color: '#4d2e1a' }}>
-                            <ManageAccountsOutlinedIcon />
-                        </IconButton>
+                        <Tooltip title="ניהול מערכת" arrow>
+                            <IconButton component={Link} to="/Admin" sx={{ color: '#4d2e1a' }}>
+                                <ManageAccountsOutlinedIcon />
+                            </IconButton>
+                        </Tooltip>
                     )}
-                    <IconButton component={Link} to="/InvitedTours" sx={{ color: '#4d2e1a' }}>
-                        <ShoppingCartOutlinedIcon sx={{ transform: 'scaleX(-1)' }} />
-                    </IconButton>
+                    <Tooltip title="הסיורים שהוזמנו" arrow>
+                        <IconButton component={Link} to="/InvitedTours" sx={{ color: '#4d2e1a' }}>
+                            <ShoppingCartOutlinedIcon sx={{ transform: 'scaleX(-1)' }} />
+                        </IconButton>
+                    </Tooltip>
                 </Box>
             </Toolbar>
         </AppBar>

@@ -41,7 +41,6 @@ export const Home = () => {
                 alignItems: { xs: 'flex-start', md: 'flex-start' },
                 padding: { xs: '1rem', md: '2rem' },
                 boxSizing: 'border-box',
-                py: { xs: 4, md: 8 }
             }}
         >
             <Box
@@ -50,7 +49,6 @@ export const Home = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     gap: 2,
-                    padding: '1.5rem',
                     borderRadius: '8px',
                     width: { xs: '95%', sm: '80%', md: '80%' },
                     color: 'white',
@@ -62,7 +60,7 @@ export const Home = () => {
                 {error && <Typography color="error">{error}</Typography>}
 
                 {!loading && !error && (
-                    <Box sx={{ p: 2, width: '100%' }}>
+                    <Box sx={{ p: 0, width: '100%' }}>
                         <Typography
                             variant="h5"
                             color="white"
@@ -73,7 +71,7 @@ export const Home = () => {
                                 marginBottom: '1.5rem'
                             }}
                         >
-                            השירותים שלנו:
+                            סוגי הסיורים שלנו:
                         </Typography>
 
                         <Box
@@ -112,32 +110,36 @@ export const Home = () => {
                                         }
                                     }}
                                 >
-                                    <ServiceCard sx={{ width: '100%' }}>
-                                        <CardContent
-                                            sx={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                justifyContent: 'center',
-                                                alignItems: 'center',
-                                                textAlign: 'center',
-                                                flexGrow: 1,
-                                            }}
-                                        >
-                                            <Typography
-                                                variant="h6"
-                                                color="text.primary"
-                                                sx={{ marginBottom: '0.5rem' }}
+                                    {/* <Link to="/BookATour" */}
+                                    <Link to={`/BookATour/${service._id}`}
+                                        style={{ textDecoration: 'none', width: '100%' }}>
+                                        <ServiceCard sx={{ width: '100%' }}>
+                                            <CardContent
+                                                sx={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    justifyContent: 'center',
+                                                    alignItems: 'center',
+                                                    textAlign: 'center',
+                                                    flexGrow: 1,
+                                                }}
                                             >
-                                                {service.description}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                מחיר:  ₪{service.price}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                אורך: {service.durationTime}  דקות
-                                            </Typography>
-                                        </CardContent>
-                                    </ServiceCard>
+                                                <Typography
+                                                    variant="h6"
+                                                    color="text.primary"
+                                                    sx={{ marginBottom: '0.5rem' }}
+                                                >
+                                                    {service.description}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    מחיר:  ₪{service.price}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    אורך: {service.durationTime}  דקות
+                                                </Typography>
+                                            </CardContent>
+                                        </ServiceCard>
+                                    </Link>
                                 </Box>
                             ))}
                         </Box>

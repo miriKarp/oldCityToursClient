@@ -1,4 +1,4 @@
-import axiosData from './axiosData';
+import axiosData from './axiosData.api';
 import { Tour } from '../types/Tour';
 
 export const getUsers = async () => {

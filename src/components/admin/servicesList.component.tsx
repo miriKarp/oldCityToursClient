@@ -37,7 +37,7 @@ export const ServicesList = () => {
       await dispatch(addService(newService));
     }
     await dispatch(fetchServices());
-    setNewService({ _id: '', description: '', price: 0, durationTime: 0, business: '' });
+    setNewService({ _id: '', description: ' ', price: 0, durationTime: 0, business: '' });
     setIsEditMode(false);
   };
 

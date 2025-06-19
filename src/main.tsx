@@ -8,8 +8,8 @@ import store from './redux/store';
 import './index.css'
 
 import { vintageTheme } from "./theme/vintageTheme";
-import { ProtectedRoute } from "./components/auth/ProtectedRoute";
-import { AppInitializer } from './components/auth/appInitializer';
+import { ProtectedRoute } from "./components/auth/ProtectedRoute.component";
+import { AppInitializer } from './components/auth/appInitializer.component';
 import { SignIn } from './components/auth/signIn.component';
 import { SignUp } from './components/auth/signUp.component';
 import { Home } from './components/layout/home.component';
@@ -37,6 +37,14 @@ const router = createBrowserRouter([
       { path: "BusinessDetails", element: <BusinessDetails /> },
       {
         path: "BookATour",
+        element: (
+          <ProtectedRoute>
+            <BookATour />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: "BookATour/:serviceId",
         element: (
           <ProtectedRoute>
             <BookATour />

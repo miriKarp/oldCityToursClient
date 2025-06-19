@@ -1,4 +1,4 @@
-import axios from './axiosData';
+import axios from './axiosData.api';
 
 export const register = async (name: string, email: string, password: string, phone: string) => {
   if (!name || !email || !password || !phone) {

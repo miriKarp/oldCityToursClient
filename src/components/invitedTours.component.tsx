@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getMyTours } from '../api/data.api';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { Link } from "react-router-dom"
 import HikingOutlinedIcon from '@mui/icons-material/HikingOutlined';
 
@@ -24,8 +24,7 @@ export const InvitedTours = () => {
     }, []);
 
     return (
-        <div>
-
+        <Box>
             <h2>רשימת סיורים שלי:</h2>
             {loading && <p>טוען סיורים...</p>}
             {error && <p>שגיאה: {error}</p>}
@@ -67,6 +66,6 @@ export const InvitedTours = () => {
             >
                 להזמנת סיור
             </Button>
-        </div>
+        </Box>
     );
 };
