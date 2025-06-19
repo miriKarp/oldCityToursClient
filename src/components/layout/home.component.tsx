@@ -171,7 +171,7 @@ export const Home = () => {
                             width: { xs: '100%', sm: 'auto' },
                         }}
                     >
-                        לקביעת סיור
+                        להזמנת סיור
                     </Button>
                 </Box>
             </Box>

@@ -1,5 +1,6 @@
 import { AppDispatch } from '../store';
 import { fetchTours, addTour } from '../slices/toursSlices';
+import type { NewTour } from '../../types/Tour';
 
 export const loadTours = () => async (dispatch: AppDispatch) => {
     try {
@@ -9,14 +10,7 @@ export const loadTours = () => async (dispatch: AppDispatch) => {
     }
 };
 
-export const createTour = (tourData: {
-    time: string;
-    invitingName: string;
-    phone: string;
-    note: string;
-    group: boolean;
-    tourType: number;
-}) => async (dispatch: AppDispatch) => {
+export const createTour = (tourData: NewTour) => async (dispatch: AppDispatch) => {
     try {
         const res = await dispatch(addTour(tourData)).unwrap();
         return res;

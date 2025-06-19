@@ -32,7 +32,7 @@ export const ToursList = () => {
         phone: '',
         note: '',
         group: false,
-        tourType: 0
+        tourType: '',
     });
 
     const editSectionRef = useRef<HTMLDivElement | null>(null);
@@ -73,7 +73,7 @@ export const ToursList = () => {
             phone: '',
             note: '',
             group: false,
-            tourType: 0
+            tourType: '',
         });
     };
 
@@ -99,7 +99,7 @@ export const ToursList = () => {
                             <strong>{tour.invitingName}</strong><br />
                             תאריך: {new Date(tour.time).toLocaleString()}<br />
                             טלפון: {tour.phone}<br />
-                            סוג סיור: {tour.tourType}<br />
+                            סוג סיור: {tour.tourType?.description}<br />
                             קבוצתי: {tour.group ? 'כן' : 'לא'}<br />
                             הערות: {tour.note}<br />
                             <Button
@@ -155,7 +155,7 @@ export const ToursList = () => {
                                 label="סוג סיור"
                                 type="number"
                                 value={tourData.tourType}
-                                onChange={(e) => setTourData({ ...tourData, tourType: Number(e.target.value) })}
+                                onChange={(e) => setTourData({ ...tourData, tourType: e.target.value })}
                             />
                             <FormControl>
                                 <InputLabel>קבוצתי</InputLabel>
