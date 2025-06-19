@@ -5,6 +5,10 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchBusiness, updateBusiness } from '../../redux/slices/businessSlice';
 import { RootState, AppDispatch } from '../../redux/store';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 
 export const BusinessDetails = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -114,10 +118,10 @@ export const BusinessDetails = () => {
                         </>
                     ) : (
                         <>
-                            <Box>📍 {business.address || 'כתובת לא זמינה'}</Box>
-                            <Box>📞 {business.phone || 'טלפון לא זמין'}</Box>
-                            <Box>✉️ {business.email || 'דוא"ל לא זמין'}</Box>
-                            <Box>🕰 {business.openingHours || 'שעות לא זמינות'}</Box>
+                            <Box><LocationOnOutlinedIcon /> {business.address || 'כתובת לא זמינה'}</Box>
+                            <Box><PhoneOutlinedIcon /> {business.phone || 'טלפון לא זמין'}</Box>
+                            <Box><EmailOutlinedIcon /> {business.email || 'דוא"ל לא זמין'}</Box>
+                            <Box><AccessTimeOutlinedIcon /> {business.openingHours || 'שעות לא זמינות'}</Box>
                             <Button
                                 variant="outlined"
                                 sx={{ marginTop: 2 }}
