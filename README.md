@@ -1,30 +1,50 @@
-# React + TypeScript + Vite
+# 🏰 אתר סיורים בעיר העתיקה – פרויקט סיום
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+זהו אתר לניהול עסק פרטי המספק סיורים בעיר העתיקה. האתר כולל ממשק למשתמשים לקביעת סיורים, וממשק נפרד למנהל העסק לניהול השירותים, הפגישות והלקוחות.
 
-Currently, two official plugins are available:
+## 🧭 תוכן עניינים
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [תכונות עיקריות](#תכונות-עיקריות)
+- [טכנולוגיות](#טכנולוגיות)
+- [התקנה והרצה](#התקנה-והרצה)
+- [מבנה פרויקט](#מבנה-פרויקט)
+- [מבנה בסיס נתונים](#מבנה-בסיס-נתונים)
+- [מידע נוסף](#מידע-נוסף)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## ✨ תכונות עיקריות
 
-- Configure the top-level `parserOptions` property like this:
+### 👤 ממשק משתמש
+- צפייה בפרטי העסק
+- קביעת סיור לפי:
+  - סוג שירות
+  - תאריך ושעה
+  - שם וטלפון
+  - הערה למנהל
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### 🛠️ ממשק ניהול (מוגן בסיסמה)
+- `/admin` – רק למנהל
+- ניהול שירותים: הוספה, עריכה ומחיקה
+- צפייה ועריכה או מחיקה בכל הפגישות
+- סינון לפי תאריך או שם לקוח
+- צפייה ברשימת הלקוחות
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+---
+
+## 🧪 טכנולוגיות
+
+### 🌐 Frontend – React + TypeScript
+- Redux Toolkit
+- React Router
+- MUI (Material UI)
+- Dayjs לניהול תאריכים
+- Axios לביצוע קריאות ל־API
+
+---
+
+## ⚙️ התקנה והרצה
+
+```bash
+git clone https://github.com/miriKarp/oldCityToursClient.git
+cd oldCityToursClient
