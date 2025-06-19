@@ -4,6 +4,7 @@ interface UserState {
   user: {
     name: string;
     email: string;
+    phone: string;
     isManager: boolean;
   } | null;
   token: string | null;
@@ -29,7 +30,7 @@ const userSlice = createSlice({
       state.signUpError = null;
       state.signInError = null;
     },
-    signInSuccess(state, action: PayloadAction<{ token: string; user: { name: string; email: string; isManager: boolean } }>) {
+    signInSuccess(state, action: PayloadAction<{ token: string; user: { name: string; email: string;phone: string; isManager: boolean } }>) {
       state.loading = false;
       state.token = action.payload.token;
       state.user = action.payload.user;
@@ -39,7 +40,7 @@ const userSlice = createSlice({
       state.loading = false;
       state.signInError = action.payload;
     },
-    signUpSuccess(state, action: PayloadAction<{ token: string; user: { name: string; email: string; isManager: boolean } }>) {
+    signUpSuccess(state, action: PayloadAction<{ token: string; user: { name: string; email: string;phone: string; isManager: boolean } }>) {
       state.loading = false;
       state.token = action.payload.token;
       state.user = action.payload.user;
